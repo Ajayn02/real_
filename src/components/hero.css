@@ -1,0 +1,15 @@
+.img-div {
+    margin-top: -45px;
+}
+
+@media (min-width: 640px) and (max-width: 768px) {
+    .img-div {
+        margin-top: -200px;
+    }
+}
+
+@media (min-width: 319px) and (max-width:640px) {
+    .img-div {
+        margin-top: -150px;
+    }
+}
