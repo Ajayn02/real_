@@ -1,7 +1,7 @@
 import React from 'react'
-import service1 from '../../public/service1.svg'
-import service2 from '../../public/service2.svg'
-import service3 from '../../public/service3.svg'
+import service1 from '../assets/service1.svg'
+import service2 from '../assets/service2.svg'
+import service3 from '../assets/service3.svg'
 
 function Service() {
     return (

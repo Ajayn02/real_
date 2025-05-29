@@ -18,7 +18,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/save' element={<Save />} />
         <Route path='/account' element={<Account />} />
-        <Route path='/view' element={<Viewmore />} />
+        <Route path='/view/:id' element={<Viewmore />} />
         <Route path='/message' element={<Message />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>

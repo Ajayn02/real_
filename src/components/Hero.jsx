@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import home from '../../public/land.png'
+import home from '../assets/land.png'
 import './hero.css'
 
 function Hero() {

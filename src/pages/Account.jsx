@@ -3,8 +3,38 @@ import EditUser from '../components/EditUser'
 import AddProperty from '../components/AddProperty'
 import EditModal from '../components/EditModal'
 import DeleteModal from '../components/DeleteModal'
+import { fetchData } from '../hooks/fetchData'
+import { getUserDetails } from '../service/allApis'
+import { image_url } from '../service/base_url'
 
 function Account() {
+
+    const header = {
+        'Content-Type': 'application/json',
+        'Authorization': `token ${sessionStorage.getItem('token')}`
+    }
+
+    const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails, header)
+
+    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData()
+
+    if (isPostLoading || isUserLoading) {
+        return (
+            <div className='flex justify-center items-center h-screen'><div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div></div>
+        )
+    }
+
+    if (isPostError || isUserError) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="bg-red-100 text-red-700 px-6 py-4 rounded-md ">
+                    <p className="font-semibold">Something went wrong</p>
+                    <p className="text-sm mt-1">{userError ? userError.message : PostError.message || 'Failed to fetch data.'}</p>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <>
             <div className='w-full min-h-[70vh]   flex justify-center items-center'>
@@ -12,10 +42,10 @@ function Account() {
                     <EditUser />
                     <div className='h-70   w-full flex justify-center items-center flex-col'>
                         <div className='h-20 w-20  ' style={{ borderRadius: "40px" }}>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s" className='w-[100%] h-full' alt="" />
+                            <img src={data?.data?.data.image ? `${image_url}/uploads/${userData?.data?.data.image}` : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s`} className='w-[100%] h-full' alt="" />
                         </div>
-                        <h3 className='mt-2 text-lg font-semibold'>User</h3>
-                        <p>abce@gmail.com</p>
+                        <h3 className='mt-2 text-lg font-semibold'>{userData?.data?.data.name}</h3>
+                        <p>{userData?.data?.data.email}</p>
 
                     </div>
                 </div>

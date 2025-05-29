@@ -13,3 +13,13 @@ export const loginUser = async (data) => {
 export const getPosts = async (header) => {
     return await commonApi(`${base_url}/posts`, 'GET', header, '')
 }
+
+export const getUniquePost = async (header, params) => {
+    return await commonApi(`${base_url}/posts/${params}`, 'GET', header, '')
+}
+
+//user
+
+export const getUserDetails = async (header) => {
+    return await commonApi(`${base_url}/users/user`, "GET", header, '')
+}
