@@ -4,7 +4,10 @@ const commonApi = async (apiUrl, apiMethod, apiHeaders, apiBody) => {
     const config = {
         url: apiUrl,
         method: apiMethod,
-        headers: apiHeaders ? apiHeaders : { "Content-Type": "application/json" },
+        headers: apiHeaders ? apiHeaders : {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
         data: apiBody
     }
 

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Link,useNavigate } from 'react-router-dom';
-import { loginUser } from '../service/allApis';
+import { loginUser } from '../service/authServices';
 import toast from 'react-hot-toast';
 
 function Login() {

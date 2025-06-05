@@ -4,26 +4,24 @@ import AddProperty from '../components/AddProperty'
 import EditModal from '../components/EditModal'
 import DeleteModal from '../components/DeleteModal'
 import { fetchData } from '../hooks/fetchData'
-import { getUserDetails } from '../service/allApis'
+import { getUserDetails } from '../service/userService'
+import { getUserPosts } from '../service/postService'
 import { image_url } from '../service/base_url'
+import { Link } from 'react-router-dom'
 
 function Account() {
 
-    const header = {
-        'Content-Type': 'application/json',
-        'Authorization': `token ${sessionStorage.getItem('token')}`
-    }
 
-    const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails, header)
 
-    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData()
+    const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails)
+    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData('userPost', getUserPosts)
+
 
     if (isPostLoading || isUserLoading) {
         return (
             <div className='flex justify-center items-center h-screen'><div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div></div>
         )
     }
-
     if (isPostError || isUserError) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -35,6 +33,8 @@ function Account() {
         )
     }
 
+
+
     return (
         <>
             <div className='w-full min-h-[70vh]   flex justify-center items-center'>
@@ -42,7 +42,7 @@ function Account() {
                     <EditUser />
                     <div className='h-70   w-full flex justify-center items-center flex-col'>
                         <div className='h-20 w-20  ' style={{ borderRadius: "40px" }}>
-                            <img src={data?.data?.data.image ? `${image_url}/uploads/${userData?.data?.data.image}` : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s`} className='w-[100%] h-full' alt="" />
+                            <img src={userData?.data?.data?.image ? `${image_url}/uploads/${userData?.data?.data?.image}` : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s`} className='w-[100%] h-full' alt="" />
                         </div>
                         <h3 className='mt-2 text-lg font-semibold'>{userData?.data?.data.name}</h3>
                         <p>{userData?.data?.data.email}</p>
@@ -60,106 +60,39 @@ function Account() {
                         <AddProperty />
                     </div>
                 </div>
-                <div className='w-full  h-auto  grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   '>
+                {
+                    postData?.data?.data.length > 0 ?
+                        <div className='w-full  h-auto  grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   '>
+                            {
+                                postData?.data?.data?.map((item) => (
+                                    <div key={item.id} className='flex justify-center items-center  mt-6 '>
+                                        <div className='h-auto w-[280px] flex flex-col rounded-md border border-gray-300  transition-transform duration-300 hover:scale-101 relative'>
 
-                    <div className='flex justify-center items-center  mt-6 '>
-                        <div className='h-auto w-[300px] flex flex-col rounded-md border border-gray-300 p-4 transition-transform duration-300 hover:scale-101 relative'>
+                                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
+                                                <DeleteModal id={item?.id} />
+                                                <EditModal id={item} />
+                                            </div>
 
-                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
-                                <DeleteModal />
-                                <EditModal />
-                            </div>
-
-                            <div className='w-full h-[220px]'>
-                                <img src="https://realspace-backend.onrender.com/uploads/image-1732895362895-house.png" className='w-[100%] h-[100%]' alt="" />
-                            </div>
-                            <h1 className='text-xl font-semibold ps-1 pt-1 mt-5'>3BHK House For Sale ...</h1>
-                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-1 pt-1 me-1" />Kochi</p>
-                            <div className='flex justify-between px-1 mt-2 font-semibold'>
-                                <div className='flex items-center'><p>₹ 500000</p></div>
-                                <button className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</button>
-                            </div>
+                                            <div className='w-full h-[220px]'>
+                                                <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="" />
+                                            </div>
+                                            <h1 className='text-xl font-semibold px-3 pt-1 mt-5'>{item?.title}</h1>
+                                            <p className='text-gray-400 px-3 font-semibold'><i className="fa-solid fa-location-dot  pt-1 me-1" />{item?.location}</p>
+                                            <div className='flex justify-between px-3 mt-2 mb-3 font-semibold'>
+                                                <div className='flex items-center'><p>₹ {item?.price}</p></div>
+                                                <Link to={`/view/${item.id}`} className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </div>
-                    </div>
+                        :
+                        <div className='w-full h-[30vh] flex justify-center items-center'>
 
-                    <div className='flex justify-center items-center  mt-6 '>
-                        <div className='h-auto w-[300px] flex flex-col rounded-md border border-gray-300 p-4 transition-transform duration-300 hover:scale-101 relative'>
-
-                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
-                                <DeleteModal />
-                                <EditModal />
-                            </div>
-
-                            <div className='w-full h-[220px]'>
-                                <img src="https://realspace-backend.onrender.com/uploads/image-1732895362895-house.png" className='w-[100%] h-[100%]' alt="" />
-                            </div>
-                            <h1 className='text-xl font-semibold ps-1 pt-1 mt-5'>3BHK House For Sale ...</h1>
-                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-1 pt-1 me-1" />Kochi</p>
-                            <div className='flex justify-between px-1 mt-2 font-semibold'>
-                                <div className='flex items-center'><p>₹ 500000</p></div>
-                                <button className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</button>
-                            </div>
                         </div>
-                    </div>
-                    <div className='flex justify-center items-center  mt-6 '>
-                        <div className='h-auto w-[300px] flex flex-col rounded-md border border-gray-300 p-4 transition-transform duration-300 hover:scale-101 relative'>
+                }
 
-                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
-                                <DeleteModal />
-                                <EditModal />
-                            </div>
-
-                            <div className='w-full h-[220px]'>
-                                <img src="https://realspace-backend.onrender.com/uploads/image-1732895362895-house.png" className='w-[100%] h-[100%]' alt="" />
-                            </div>
-                            <h1 className='text-xl font-semibold ps-1 pt-1 mt-5'>3BHK House For Sale ...</h1>
-                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-1 pt-1 me-1" />Kochi</p>
-                            <div className='flex justify-between px-1 mt-2 font-semibold'>
-                                <div className='flex items-center'><p>₹ 500000</p></div>
-                                <button className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex justify-center items-center  mt-6 '>
-                        <div className='h-auto w-[300px] flex flex-col rounded-md border border-gray-300 p-4 transition-transform duration-300 hover:scale-101 relative'>
-
-                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
-                                <DeleteModal />
-                                <EditModal />
-                            </div>
-
-                            <div className='w-full h-[220px]'>
-                                <img src="https://realspace-backend.onrender.com/uploads/image-1732895362895-house.png" className='w-[100%] h-[100%]' alt="" />
-                            </div>
-                            <h1 className='text-xl font-semibold ps-1 pt-1 mt-5'>3BHK House For Sale ...</h1>
-                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-1 pt-1 me-1" />Kochi</p>
-                            <div className='flex justify-between px-1 mt-2 font-semibold'>
-                                <div className='flex items-center'><p>₹ 500000</p></div>
-                                <button className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex justify-center items-center  mt-6 '>
-                        <div className='h-auto w-[300px] flex flex-col rounded-md border border-gray-300 p-4 transition-transform duration-300 hover:scale-101 relative'>
-
-                            <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
-                                <DeleteModal />
-                                <EditModal />
-                            </div>
-
-                            <div className='w-full h-[220px]'>
-                                <img src="https://realspace-backend.onrender.com/uploads/image-1732895362895-house.png" className='w-[100%] h-[100%]' alt="" />
-                            </div>
-                            <h1 className='text-xl font-semibold ps-1 pt-1 mt-5'>3BHK House For Sale ...</h1>
-                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-1 pt-1 me-1" />Kochi</p>
-                            <div className='flex justify-between px-1 mt-2 font-semibold'>
-                                <div className='flex items-center'><p>₹ 500000</p></div>
-                                <button className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </>
     )
