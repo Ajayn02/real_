@@ -17,12 +17,10 @@ export const mutateData = () => {
             if (result.status == 200 || result.status == 201) {
                 toast.success(result.data?.message)
                 queryClient.invalidateQueries({ queryKey: [key] })
-            } else {
-                toast.error("Request Failed")
-            }
+            } 
         },
-        onError: (err) => {
-            console.log(err);
+        onError: (error) => {
+            console.log(error);
         }
     })
 

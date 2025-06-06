@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom'
 
 function Home() {
 
-
     const { isLoading, isError, data, error } = fetchData('posts', getPosts)
 
     if (isLoading) {

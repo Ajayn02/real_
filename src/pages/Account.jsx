@@ -1,4 +1,3 @@
-import React from 'react'
 import EditUser from '../components/EditUser'
 import AddProperty from '../components/AddProperty'
 import EditModal from '../components/EditModal'
@@ -14,7 +13,7 @@ function Account() {
 
 
     const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails)
-    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData('userPost', getUserPosts)
+    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData('userPosts', getUserPosts)
 
 
     if (isPostLoading || isUserLoading) {
@@ -39,7 +38,7 @@ function Account() {
         <>
             <div className='w-full min-h-[70vh]   flex justify-center items-center'>
                 <div className=' w-[300px] sm:w-[320px] px-5 py-3  h-70 rounded-lg flex flex-col items-center shadow-sm shadow-gray-400'>
-                    <EditUser />
+                    <EditUser user={userData?.data?.data} />
                     <div className='h-70   w-full flex justify-center items-center flex-col'>
                         <div className='h-20 w-20  ' style={{ borderRadius: "40px" }}>
                             <img src={userData?.data?.data?.image ? `${image_url}/uploads/${userData?.data?.data?.image}` : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81iX4Mo49Z3oCPSx-GtgiMAkdDop2uVmVvw&s`} className='w-[100%] h-full' alt="" />
@@ -70,7 +69,7 @@ function Account() {
 
                                             <div className='absolute top-0 left-0  h-auto z-10 w-full flex justify-end pe-2 pt-2'>
                                                 <DeleteModal id={item?.id} />
-                                                <EditModal id={item} />
+                                                <EditModal data={item} />
                                             </div>
 
                                             <div className='w-full h-[220px]'>

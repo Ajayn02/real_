@@ -1,14 +1,26 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogPanel, } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
 import Sort from './Sort'
 import { Link } from 'react-router-dom'
 import LogoutModal from './LogoutModal'
+import { getPostByquery } from '../service/postService'
 
 
 function Sidebar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [search, setSearch] = useState('')
+
+    useEffect(() => {
+        handleSearchData()
+    }, [search])
+
+    const handleSearchData = async () => {
+        const result = await getPostByquery(search)
+        console.log(result);
+
+    }
 
     return (
         <>
@@ -16,7 +28,7 @@ function Sidebar() {
                 <nav aria-label="Global" className=" flex max-w-7xl items-baseline sm:items-center justify-between p-6 lg:px-8">
                     <div className='w-[305px]  grid  grid-cols-12 '>
                         <div className="col-span-12 sm:col-span-9 flex items-center  rounded-md">
-                            <input type="text" className=' rounded-md shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50  me-2 h-9 px-3' placeholder=' Search' />
+                            <input type="text" className=' rounded-md shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50  me-2 h-9 px-3' placeholder=' Search' onChange={(e) => { setSearch(e.target.value) }} />
                         </div>
                         <div className='col-span-12 sm:col-span-3 flex items-center justify-baseline mt-1 sm:mt-0 sm:justify-end '>
                             <Sort className='w-full' />

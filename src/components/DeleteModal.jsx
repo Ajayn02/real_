@@ -1,9 +1,22 @@
 'use client'
 import React, { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { mutateData } from '../hooks/mutateData'
 
-function DeleteModal() {
+function DeleteModal({ id }) {
     const [open, setOpen] = useState(false)
+
+
+    const { mutation } = mutateData()
+
+    const handleDelete = async () => {
+        mutation.mutate({ key: 'userPosts', method: 'DELETE', endPoint: `/posts/${id}`, header: '', data: {} }, {
+            onSuccess: (result) => {
+                setOpen(false)
+            }
+        })
+    }
+
     return (
         <>
             <button className=' px-3 py-2 border border-gray-300 rounded-md me-2 cursor-pointer' onClick={() => { setOpen(true) }}>
@@ -37,7 +50,7 @@ function DeleteModal() {
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
                                     type="button"
-                                    onClick={() => setOpen(false)}
+                                    onClick={handleDelete}
                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                                 >
                                     Yes, Delete

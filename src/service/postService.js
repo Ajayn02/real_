@@ -12,3 +12,9 @@ export const getUniquePost = async (params) => {
 export const getUserPosts = async () => {
     return await commonApi(`${base_url}/posts/user`, 'GET', '', '')
 }
+
+
+//search
+export const getPostByquery = async (query) => {
+    return await commonApi(`${base_url}/posts?search=${query}`, 'GET', '', '')
+}
