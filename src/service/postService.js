@@ -6,7 +6,7 @@ export const getPosts = async () => {
 }
 
 export const getUniquePost = async (params) => {
-    return await commonApi(`${base_url}/posts/${params}`, 'GET', '', '')
+    return await commonApi(`${base_url}/posts/${params.id}`, 'GET', '', '')
 }
 
 export const getUserPosts = async () => {
@@ -14,7 +14,3 @@ export const getUserPosts = async () => {
 }
 
 
-//search
-export const getPostByquery = async (query) => {
-    return await commonApi(`${base_url}/posts?search=${query}`, 'GET', '', '')
-}

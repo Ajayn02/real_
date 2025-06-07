@@ -1,15 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Sidebar from '../components/Sidebar'
 import { getPosts } from '../service/postService'
-import toast from 'react-hot-toast'
 import { image_url } from '../service/base_url'
 import { fetchData } from '../hooks/fetchData'
 import { Link } from 'react-router-dom'
 
 
 function Home() {
-
+    const [search, setSearch] = useState('')
     const { isLoading, isError, data, error } = fetchData('posts', getPosts)
+
+    const filteredPosts = useMemo(() => {
+        if (!data?.data?.data) return [];
+        if (!search) return data?.data?.data;
+
+        return data?.data?.data.filter((item) =>
+            item.location?.toLowerCase().includes(search.toLowerCase().trim())
+        );
+
+    }, [search, data]);
 
     if (isLoading) {
         return (
@@ -33,12 +42,14 @@ function Home() {
     return (
         <>
             <div className='w-full '>
-                <Sidebar />
+                <Sidebar searchKey={setSearch} />
                 {
-                    data?.data?.data.length > 0 ?
+                    // data?.data?.data.length > 0 ?
+                    filteredPosts?.length > 0 ?
                         <div className='w-full  h-auto mb-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   '>
                             {
-                                data?.data?.data.map((item) => (
+                                // data?.data?.data.map((item) => (
+                                filteredPosts?.map((item) => (
                                     <div key={item.id} className='flex justify-center items-center  mt-6'>
                                         <div className='h-auto w-[280px] flex flex-col rounded-md border border-gray-300  transition-transform duration-300 hover:scale-101 '>
                                             <div className='w-full h-[220px]  '>
