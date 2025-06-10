@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Dialog, DialogPanel, } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
 import Sort from './Sort'
@@ -7,23 +7,31 @@ import { Link } from 'react-router-dom'
 import LogoutModal from './LogoutModal'
 
 
-function Sidebar({ searchKey }) {
+function Sidebar({ searchKey, searchValue }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        if (searchValue) {
+            inputRef.current?.focus()
+        }
+    }, [searchValue])
 
     return (
         <>
-            <header className="bg-white">
-                <nav aria-label="Global" className=" flex max-w-7xl items-baseline sm:items-center justify-between p-6 lg:px-8">
-                    <div className='w-[305px]  grid  grid-cols-12 '>
-                        <div className="col-span-12 sm:col-span-9 flex items-center  rounded-md">
-                            <input type="text" className=' rounded-md shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50  me-2 h-9 px-3' placeholder=' Search' onChange={(e) => { searchKey(e.target.value) }} />
+            <header className="bg-white ">
+                <nav aria-label="Global" className=" flex  items-baseline sm:items-center justify-between p-6 lg:px-8 ">
+                    <div className='w-full  grid  grid-cols-12  '>
+                        <div className="col-span-12 sm:col-span-4 md:col-span-8 flex items-center  justify-baseline  ">
+                            <i className="fa-solid fa-house-chimney fa-lg   me-1" style={{ color: "#000000", }} />
+                            <h1 className='sm:text-2xl text-xl font-semibold'>RealSpace</h1>
                         </div>
-                        <div className='col-span-12 sm:col-span-3 flex items-center justify-baseline mt-1 sm:mt-0 sm:justify-end '>
-                            <Sort className='w-full' />
+                        <div className="col-span-12 sm:col-span-8 md:col-span-4  flex justify-baseline sm:mt-0 mt-2  items-center rounded-md ">
+                            <input type="text" className=' rounded-md shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50  me-2 h-9 px-3 w-full max-w-[400px]' ref={inputRef} placeholder='Search location' defaultValue={searchValue} onChange={(e) => { searchKey(e.target.value) }} />
                         </div>
                     </div>
 
-                    <div className="flex ">
+                    <div className="flex justify-end">
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(true)}

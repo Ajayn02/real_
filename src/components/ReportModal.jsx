@@ -1,13 +1,42 @@
 import React, { useState, useEffect } from 'react'
 'use client'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup';
+import { mutateData } from '../hooks/mutateData'
 import '../pages/viewmore.css'
 
-function ReportModal() {
+function ReportModal({ postId }) {
+
+    const schema = Yup.object().shape({
+        issue: Yup.string().required('reason is required'),
+        otherText: Yup.string().max(200, 'Character length exceed')
+    })
+
+    const { register, reset, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
 
     const [open, setOpen] = useState(false)
     const [otherText, setOtherText] = useState('');
 
+    const { mutation } = mutateData()
+    const handleReport = async (data) => {
+        if (data?.otherText) {
+            var reportData = { postId, issue: data?.otherText }
+        } else {
+            var reportData = { postId, issue: data?.issue }
+        }
+
+        mutation.mutate({ key: 'report', method: 'POST', endPoint: `/reports`, header: '', data: reportData }, {
+            onSuccess: () => {
+                setOpen(false)
+                reset()
+            },
+            onError: (error) => {
+                console.log(error);
+            }
+        })
+    }
 
     return (
         <>
@@ -36,54 +65,56 @@ function ReportModal() {
                                             Are you sure to report this post ?
                                         </DialogTitle>
                                         <div className="mt-2 w-full">
-                                            <form className=" w-full">
-                                                {/* <h2 className="text-md font-semibold">Report Reason</h2> */}
-                                                <label htmlFor="" className='flex my-1 '>
-                                                    <input type="checkbox" className='me-2' />
-                                                    <span>Spam or misleading</span>
+                                            <form className=" w-full" onSubmit={handleSubmit(handleReport)} >
+                                                {errors.issue && <p className='text-sm text-red-700'>{errors.issue.message}</p>}
+                                                <label htmlFor="reason1" className='flex my-1 '>
+                                                    <input type="radio" id='reason1' name="reason" value={`Spam or misleading`} className='me-2' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    Spam or misleading
                                                 </label>
-                                                <label htmlFor="" className='flex my-1'>
-                                                    <input type="checkbox" className='me-2' />
-                                                    <span>Inappropriate content</span>
+                                                <label htmlFor="reason2" className='flex my-1'>
+                                                    <input type="radio" id='reason2' name="reason" value={`Inappropriate content`} className='me-2' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    Inappropriate content
                                                 </label>
-                                                <label htmlFor="" className='flex my-1'>
-                                                    <input type="checkbox" className='me-2' />
-                                                    <span>Harassment or hate speech</span>
+                                                <label htmlFor="reason3" className='flex my-1'>
+                                                    <input type="radio" name="reason" value={`Harassment or hate speech`} className='me-2' id='reason3' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    Harassment or hate speech
                                                 </label>
-                                                <label htmlFor="" className='flex my-1'>
-                                                    <input type="checkbox" className='me-2' onChange={() => { setOtherText(!otherText) }} />
-                                                    <span>Others</span>
+                                                <label htmlFor="reason4" className='flex my-1'>
+                                                    <input type="radio" name="reason" value={`Others`} className='me-2' id='reason4' onClick={() => { setOtherText(true) }} {...register('issue')} />
+                                                    Others
                                                 </label>
+
 
                                                 {
                                                     otherText &&
                                                     <div className='w-full px-1'>
-                                                        <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border focus:border-gray-600'></textarea>
+                                                        <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border focus:border-gray-600' {...register('otherText')} ></textarea>
                                                     </div>
                                                 }
+
+                                                <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                                    <button
+                                                        type="submit"
+                                                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                    >
+                                                        Report
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        data-autofocus
+                                                        onClick={() => setOpen(false)}
+                                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
 
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <button
-                                    type="button"
-                                    onClick={() => setOpen(false)}
-                                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                >
-                                    Report
-                                </button>
-                                <button
-                                    type="button"
-                                    data-autofocus
-                                    onClick={() => setOpen(false)}
-                                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+
                         </DialogPanel>
                     </div>
                 </div>

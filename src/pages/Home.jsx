@@ -8,17 +8,29 @@ import { Link } from 'react-router-dom'
 
 function Home() {
     const [search, setSearch] = useState('')
-    const { isLoading, isError, data, error } = fetchData('posts', getPosts)
+    const [debouncedSearch, setDebouncedSearch] = useState(search)
 
-    const filteredPosts = useMemo(() => {
-        if (!data?.data?.data) return [];
-        if (!search) return data?.data?.data;
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearch(search)
+        }, 500) // delay in ms
 
-        return data?.data?.data.filter((item) =>
-            item.location?.toLowerCase().includes(search.toLowerCase().trim())
-        );
+        return () => clearTimeout(handler)
+    }, [search])
 
-    }, [search, data]);
+    // const { isLoading, isError, data, error } = fetchData('posts', getPosts, { search })
+    const { isLoading, isError, data, error } = fetchData('posts', getPosts, { search: debouncedSearch })
+
+    const filteredPosts = data?.data?.data || []
+    // const filteredPosts = useMemo(() => {
+    //     if (!data?.data?.data) return [];
+    //     if (!search) return data?.data?.data;    
+
+    //     return data?.data?.data.filter((item) =>
+    //         item.location?.toLowerCase().includes(search.toLowerCase().trim())
+    //     );
+
+    // }, [search, data]);
 
     if (isLoading) {
         return (
@@ -37,12 +49,10 @@ function Home() {
         )
     }
 
-
-
     return (
         <>
             <div className='w-full '>
-                <Sidebar searchKey={setSearch} />
+                <Sidebar searchKey={setSearch} searchValue={search} />
                 {
                     // data?.data?.data.length > 0 ?
                     filteredPosts?.length > 0 ?

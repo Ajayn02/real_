@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 'use client'
-import { useState } from 'react'
 import { Dialog, DialogPanel, } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
+import { io } from 'socket.io-client'
 
+
+// const socket = io(`http://localhost:5000`)
 
 function Message() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+    // const user = {
+    //     userId: `e8389eo333`,
+    //     message: 'hiii'
+    // }
+
+    // useEffect(() => {
+    //     socket.emit('register', user)
+    // }, [])
+
     return (
         <>
             <div className='h-screen'>

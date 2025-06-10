@@ -15,7 +15,6 @@ function Viewmore() {
     const { id } = useParams()
 
     const { data, isError, isLoading, error } = fetchData('post', getUniquePost, { id })
-    // console.log(data?.data?.data);
 
 
     const { mutation } = mutateData()
@@ -69,7 +68,7 @@ function Viewmore() {
                             <button onClick={() => { handleSave(data?.data?.data?.id) }} className='px-3 py-1 rounded-md viewbtn me-2' id='save'>
                                 <span><i className="fa-regular fa-bookmark fa-lg " style={{ color: "black" }} /></span>
                             </button>
-                            <ReportModal />
+                            <ReportModal postId={data?.data?.data?.id} />
                         </div>
                     </div>
                 </div>
