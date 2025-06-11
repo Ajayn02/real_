@@ -54,7 +54,7 @@ function Viewmore() {
                         <h2 className='text-xl sm:text-3xl md:text-2xl lg:text-3xl 2xl:text-4xl  font-semibold my-2'>{data?.data?.data.title}</h2>
                         <p className='text-gray-400 font-semibold 2xl:text-2xl'><i className="fa-solid fa-location-dot me-1" />{data?.data?.data.location}</p>
                         <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl '>₹ {data?.data?.data.price}</p>
-                        <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>{data?.data?.data.area}</p>
+                        <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>{data?.data?.data.area} sq ft</p>
                         <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>Apartment Type : {data?.data?.data.apartmentType}</p>
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl '>{data?.data?.data.specialities}</p>
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>{data?.data?.data.landmark}</p>

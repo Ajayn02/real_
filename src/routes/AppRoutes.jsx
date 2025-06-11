@@ -8,9 +8,12 @@ import Viewmore from '../pages/Viewmore'
 import Message from '../pages/Message'
 import Signup from '../pages/Signup'
 import Dashboard from '../pages/Dashboard'
-import { Toaster } from 'react-hot-toast';
 import NotFound from '../pages/NotFound'
+import PropertyManagement from '../pages/PropertyManagement'
+import UserManagement from '../pages/UserManagement'
+import ReportManagement from '../pages/ReportManagement'
 import PrivateRoute from './PrivateRoutes'
+import { Toaster } from 'react-hot-toast';
 
 
 function AppRoutes() {
@@ -25,8 +28,11 @@ function AppRoutes() {
                 <Route path='/account' element={<Account />} />
                 <Route path='/view/:id' element={<Viewmore />} />
                 <Route path='/message' element={<Message />} />
-                <Route path='/signup' element={<Signup />} />
+                <Route path='/signup' element={<Signup/>} />
                 <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/dashboard-property' element={<PropertyManagement />} />
+                <Route path='/dashboard-user' element={<UserManagement />} />
+                <Route path='/dashboard-report' element={<ReportManagement />} />
 
                 <Route path='*' element={<NotFound />} />
             </Routes>
