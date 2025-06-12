@@ -1,28 +1,15 @@
 'use client'
-import React, { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { mutateData } from '../hooks/mutateData'
-
-function DeleteModal({ id }) {
-    const [open, setOpen] = useState(false)
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 
 
-    const { mutation } = mutateData()
+function RejectReportModal({ open, setOpen }) {
 
-    const handleDelete = async () => {
-        mutation.mutate({ key: 'userPosts', method: 'DELETE', endPoint: `/posts/${id}`, header: '', data: {} }, {
-            onSuccess: (result) => {
-                setOpen(false)
-            }
-        })
+    const handleRemovePost = async () => {
+
     }
 
     return (
         <>
-            <button className=' px-3 py-2 border border-gray-300 rounded-md me-2 cursor-pointer' onClick={() => { setOpen(true) }}>
-                <i className="fa-solid fa-trash fa-lg" style={{ color: "#82181a" }} />
-            </button>
-
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
                     transition
@@ -41,7 +28,7 @@ function DeleteModal({ id }) {
 
                                         <div className="mt-2">
                                             <p className="text-md sm:text-lg font-semibold text-gray-500">
-                                                Are you sure, you want to delete this post?
+                                                Are you sure, you want to reject this report?
                                             </p>
                                         </div>
                                     </div>
@@ -50,10 +37,10 @@ function DeleteModal({ id }) {
                             <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
                                     type="button"
-                                    onClick={handleDelete}
+                                    onClick={handleRemovePost}
                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                                 >
-                                    Yes, Delete
+                                    Yes, Reject
                                 </button>
                                 <button
                                     type="button"
@@ -72,4 +59,4 @@ function DeleteModal({ id }) {
     )
 }
 
-export default DeleteModal
+export default RejectReportModal

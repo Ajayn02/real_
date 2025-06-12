@@ -11,22 +11,21 @@ function ReportModal({ postId }) {
 
     const schema = Yup.object().shape({
         issue: Yup.string().required('reason is required'),
-        otherText: Yup.string().max(200, 'Character length exceed')
+        description: Yup.string().required('description is required').max(200, 'Character length exceed')
     })
 
     const { register, reset, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
 
     const [open, setOpen] = useState(false)
-    const [otherText, setOtherText] = useState('');
+    const [description, setDescription] = useState('');
 
     const { mutation } = mutateData()
     const handleReport = async (data) => {
-        if (data?.otherText) {
-            var reportData = { postId, issue: data?.otherText }
-        } else {
-            var reportData = { postId, issue: data?.issue }
+        const reportData = {
+            issue: data.issue,
+            description: data.description,
+            postId
         }
-
         mutation.mutate({ key: 'report', method: 'POST', endPoint: `/reports`, header: '', data: reportData }, {
             onSuccess: () => {
                 setOpen(false)
@@ -68,28 +67,33 @@ function ReportModal({ postId }) {
                                             <form className=" w-full" onSubmit={handleSubmit(handleReport)} >
                                                 {errors.issue && <p className='text-sm text-red-700'>{errors.issue.message}</p>}
                                                 <label htmlFor="reason1" className='flex my-1 '>
-                                                    <input type="radio" id='reason1' name="reason" value={`Spam or misleading`} className='me-2' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    <input type="radio" id='reason1' name="reason" value={`Spam or misleading`} className='me-2' onClick={() => { setDescription(true) }} {...register('issue')} />
                                                     Spam or misleading
                                                 </label>
                                                 <label htmlFor="reason2" className='flex my-1'>
-                                                    <input type="radio" id='reason2' name="reason" value={`Inappropriate content`} className='me-2' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    <input type="radio" id='reason2' name="reason" value={`Inappropriate content`} className='me-2' onClick={() => { setDescription(true) }} {...register('issue')} />
                                                     Inappropriate content
                                                 </label>
                                                 <label htmlFor="reason3" className='flex my-1'>
-                                                    <input type="radio" name="reason" value={`Harassment or hate speech`} className='me-2' id='reason3' onClick={() => { setOtherText(false) }} {...register('issue')} />
+                                                    <input type="radio" name="reason" value={`Harassment or hate speech`} className='me-2' id='reason3' onClick={() => { setDescription(true) }} {...register('issue')} />
                                                     Harassment or hate speech
                                                 </label>
                                                 <label htmlFor="reason4" className='flex my-1'>
-                                                    <input type="radio" name="reason" value={`Others`} className='me-2' id='reason4' onClick={() => { setOtherText(true) }} {...register('issue')} />
+                                                    <input type="radio" name="reason" value={`Others`} className='me-2' id='reason4' onClick={() => { setDescription(true) }} {...register('issue')} />
                                                     Others
                                                 </label>
 
 
                                                 {
-                                                    otherText &&
-                                                    <div className='w-full px-1'>
-                                                        <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border focus:border-gray-600' {...register('otherText')} ></textarea>
-                                                    </div>
+                                                    description &&
+                                                    <>
+                                                        <div className='w-full px-1'>
+                                                            <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border focus:border-gray-600' {...register('description')} ></textarea>
+                                                        </div>
+                                                        {errors.description &&
+                                                            <p className='text-sm text-red-700'>{errors.description.message}</p>
+                                                        }
+                                                    </>
                                                 }
 
                                                 <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
