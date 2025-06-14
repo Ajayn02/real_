@@ -9,7 +9,6 @@ function ReportManagement() {
                         <h2 className='text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold'>Report Management</h2>
                         <p className='text-gray-500 text-xs sm:text-sm'>Monitor and manage user reports and activity</p>
                     </div>
-
                 </div>
                 <div className='w-full h-auto rounded-lg border border-gray-300 p-3 sm:p-6'>
                     {/* buttons */}

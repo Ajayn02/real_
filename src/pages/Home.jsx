@@ -18,19 +18,9 @@ function Home() {
         return () => clearTimeout(handler)
     }, [search])
 
-    // const { isLoading, isError, data, error } = fetchData('posts', getPosts, { search })
     const { isLoading, isError, data, error } = fetchData('posts', getPosts, { search: debouncedSearch })
 
     const filteredPosts = data?.data?.data || []
-    // const filteredPosts = useMemo(() => {
-    //     if (!data?.data?.data) return [];
-    //     if (!search) return data?.data?.data;    
-
-    //     return data?.data?.data.filter((item) =>
-    //         item.location?.toLowerCase().includes(search.toLowerCase().trim())
-    //     );
-
-    // }, [search, data]);
 
     if (isLoading) {
         return (

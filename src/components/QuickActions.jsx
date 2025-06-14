@@ -25,11 +25,11 @@ function QuickActions() {
                             <h6 className='text-lg font-semibold mt-2'>Report Management</h6>
                             <p className='text-sm mt-1'>Manage user reports...</p>
                         </Link>
-                        <div className='hover:shadow-sm rounded-lg flex flex-col p-3 min-h-30 cursor-pointer  bg-gray-50'>
+                        <Link to={'/dashboard-analytics'} className='hover:shadow-sm rounded-lg flex flex-col p-3 min-h-30 cursor-pointer  bg-gray-50'>
                             <Eye size={30} />
                             <h6 className='text-lg font-semibold mt-2'>Analytics</h6>
                             <p className='text-sm mt-1'>Analys with charts...</p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div >

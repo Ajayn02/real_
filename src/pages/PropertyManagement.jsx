@@ -3,6 +3,7 @@ import { Search } from 'lucide-react'
 import DeleteModal from '../components/DeleteModal'
 import EditModal from '../components/EditModal'
 import { Link } from 'react-router-dom'
+import AddProperty from '../components/AddProperty'
 
 function PropertyManagement() {
     return (
@@ -14,7 +15,7 @@ function PropertyManagement() {
                         <p className='text-gray-500 text-xs sm:text-sm'>Manage and monitor all property listings</p>
                     </div>
                     <div className='mt-3 sm:mt-0 flex items-center justify-baseline sm:justify-end  col-span-12 sm:col-span-3'>
-                        <button className='px-2 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-md border bg-gray-800 text-white font-semibold rounded-lg cursor-pointer'>+ Add Property</button>
+                        <AddProperty />
                     </div>
                 </div>
                 <div className='w-full h-auto rounded-lg border border-gray-300 p-6'>
