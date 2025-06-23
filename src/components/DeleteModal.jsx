@@ -1,11 +1,10 @@
 'use client'
 import React, { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { mutateData } from '../hooks/mutateData'
 
 function DeleteModal({ id }) {
     const [open, setOpen] = useState(false)
-
 
     const { mutation } = mutateData()
 

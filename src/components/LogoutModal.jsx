@@ -1,13 +1,22 @@
 'use client'
 import React, { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 function LogoutModal() {
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        sessionStorage.clear()
+        setOpen(false)
+        navigate('/')
+    }
 
     return (
         <>
-            <a href="#" className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" onClick={() => { setOpen(true) }} >Log out</a>
+            <Link className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" onClick={() => { setOpen(true) }} >Log out</Link>
 
 
             <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -37,7 +46,7 @@ function LogoutModal() {
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
                                     type="button"
-                                    onClick={() => setOpen(false)}
+                                    onClick={() => handleLogout()}
                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                                 >
                                     Yes, Logout

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,9 +10,11 @@ import { image_url } from '../service/base_url'
 
 
 function EditUser({ user }) {
+
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState('')
     const [preview, setPreview] = useState('')
+    const [isActive, setIsActive] = useState()
 
     useEffect(() => {
         if (image) {
@@ -31,8 +33,16 @@ function EditUser({ user }) {
     let { mutation } = mutateData()
 
     const handleUpdate = async (data) => {
+
         if (!image) {
+            if (sessionStorage.getItem('role') === 'admin') {
+                data.isActive = isActive
+                data.userId = user.id
+            } else {
+                data.isActive = user.isActive
+            }
             data.image = user.image
+
             mutation.mutate({ key: 'user', method: 'PUT', endPoint: `/users`, header: '', data }, {
                 onSuccess: () => {
                     reset()
@@ -44,6 +54,7 @@ function EditUser({ user }) {
             const formData = new FormData()
             formData.append('name', data?.name)
             formData.append('image', image)
+            formData.append('isActive', user?.isActive)
 
             const header = {
                 'Content-Type': 'multipart/form-data',
@@ -51,7 +62,8 @@ function EditUser({ user }) {
             }
 
             mutation.mutate({ key: 'user', method: 'PUT', endPoint: '/users', header, data: formData }, {
-                onSuccess: () => {
+                onSuccess: (result) => {
+                    console.log(result);
                     reset()
                     setOpen(false)
                     setPreview('')
@@ -62,11 +74,7 @@ function EditUser({ user }) {
 
     return (
         <>
-            <div className='h-10 w-full  flex justify-end items-center'>
-                <i className="fa-solid fa-pen-to-square fa-lg" style={{ color: '' }} onClick={() => {
-                    setOpen(true)
-                }} />
-            </div>
+            <i className="fa-solid fa-pen-to-square fa-lg" onClick={() => { setOpen(true) }} />
 
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
@@ -94,14 +102,31 @@ function EditUser({ user }) {
                                                         className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" defaultValue={user?.name}  {...register('name')} />
                                                     {errors.name && <p className='text-sm text-red-700'>{errors.name.message}</p>}
                                                 </div>
-                                                <div className='py-3'>
-                                                    <p className='block text-sm font-medium text-gray-600'>Upload profile image</p>
-                                                    <label className='cursor-pointer' >
-                                                        <input type="file" className='hidden' onChange={(e) => { setImage(e.target.files[0]) }} />
-                                                        <img
-                                                            src={preview ? preview : user?.image ? `${image_url}/uploads/${user?.image}` : "https://cdn-icons-png.flaticon.com/512/564/564793.png"} alt="" className='w-20 mt-2' />
-                                                    </label>
+                                                <div className='my-2'>
+                                                    <label htmlFor="Email" className="block text-sm font-medium text-gray-600">Email</label>
+                                                    <input type="text" id="Email" name="Email"
+                                                        className="w-full bg-gray-100 px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" value={user?.email} disabled />
                                                 </div>
+                                                {
+                                                    sessionStorage.getItem('role') === 'user' ?
+                                                        <div className='py-3'>
+                                                            <p className='block text-sm font-medium text-gray-600'>Upload profile image</p>
+                                                            <label className='cursor-pointer' >
+                                                                <input type="file" className='hidden' onChange={(e) => { setImage(e.target.files[0]) }} />
+                                                                <img
+                                                                    src={preview ? preview : user?.image ? `${image_url}/uploads/${user?.image}` : "https://cdn-icons-png.flaticon.com/512/564/564793.png"} alt="" className='w-20 mt-2' />
+                                                            </label>
+                                                        </div>
+                                                        :
+                                                        <div className='my-2'>
+                                                            <label htmlFor="Status" className="block text-sm font-medium text-gray-600">Status</label>
+                                                            <select name="" id="" className='w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' defaultValue={user?.isActive} onChange={(e) => { setIsActive(e.target.value) }} >
+                                                                <option value={true}>Active</option>
+                                                                <option value={false}>Deactive</option>
+                                                            </select>
+                                                        </div>
+                                                }
+
                                                 <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                                     <button
                                                         type="submit"

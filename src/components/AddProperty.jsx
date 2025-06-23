@@ -77,79 +77,82 @@ function AddProperty() {
                 />
 
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full w-full items-center justify-center p-4 text-center sm:items-center sm:p-0 ">
                         <DialogPanel
                             transition
-                            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
+                            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full   sm:max-w-lg md:max-w-xl lg:max-w-2xl data-closed:sm:translate-y-0 data-closed:sm:scale-95 "
                         >
                             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div className="sm:flex sm:items-start">
                                     <div className="mt-3  sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                        <DialogTitle as="h3" className="text-center sm:text-start font-semibold text-gray-900">
+                                        <DialogTitle as="h3" className="text-center sm:text-start font-semibold text-gray-900 text-lg">
                                             Add Property
                                         </DialogTitle>
                                         <div className="mt-2 w-full">
                                             <form action="" className='w-full' onSubmit={handleSubmit(handleAddProperty)}>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Title" className="block text-sm font-medium text-gray-600">Title</label>
-                                                    <input type="text" id="Title" name="Title"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('title')} />
-                                                    {errors.title && <p className='text-sm text-red-700'>{errors.title.message}</p>}
+                                                <div className='w-full grid grid-cols-1 sm:grid-cols-2 sm:gap-x-5  '>
+                                                    <div className='flex flex-col '>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Title" className="block text-sm font-medium text-gray-600">Title</label>
+                                                            <input type="text" id="Title" name="Title"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('title')} />
+                                                            {errors.title && <p className='text-sm text-red-700'>{errors.title.message}</p>}
 
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Location" className="block text-sm font-medium text-gray-600">Location</label>
+                                                            <input type="text" id="Location" name="Location"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('location')} />
+                                                            {errors.location && <p className='text-sm text-red-700'>{errors.location.message}</p>}
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Price" className="block text-sm font-medium text-gray-600">Price</label>
+                                                            <input type="number" id="Price" name="Price"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none"
+                                                                {...register('price')} />
+                                                            {errors.price && <p className='text-sm text-red-700'>{errors.price.message}</p>}
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Area" className="block text-sm font-medium text-gray-600">Area in sq</label>
+                                                            <input type="text" id="Area" name="Area"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('area')} />
+                                                            {errors.area && <p className='text-sm text-red-700'>{errors.area.message}</p>}
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex flex-col'>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="ApartmentType" className="block text-sm font-medium text-gray-600">Apartment Type</label>
+                                                            <input type="text" id="ApartmentType" name="ApartmentType"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('apartmentType')} />
+                                                            {errors.apartmentType && <p className='text-sm text-red-700'>{errors.apartmentType.message}</p>}
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Landmark" className="block text-sm font-medium text-gray-600">Landmark</label>
+                                                            <input type="text" id="Landmark" name="Landmark"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('landmark')} />
+                                                            {errors.landmark && <p className='text-sm text-red-700'>{errors.landmark.message}</p>}
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="Googlemap" className="block text-sm font-medium text-gray-600">Googlemap Link</label>
+                                                            <input type="text" id="Googlemap" name="Googlemap"
+                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('googlemap')} />
+                                                            {errors.googlemap && <p className='text-sm text-red-700'>{errors.googlemap.message}</p>}
+                                                        </div>
+                                                        <div className='my-1'>
+                                                            <label htmlFor="" className='block text-sm font-medium text-gray-600'>Upload Image</label>
+                                                            <input type="file" className='w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' onChange={(e) => { setImage(e.target.files[0]) }} />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Location" className="block text-sm font-medium text-gray-600">Location</label>
-                                                    <input type="text" id="Location" name="Location"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('location')} />
-                                                    {errors.location && <p className='text-sm text-red-700'>{errors.location.message}</p>}
+                                                <div className='grid grid-cols-1'>
+                                                    <div className='my-1'>
+                                                        <label htmlFor="Description" className="block text-sm font-medium text-gray-600">Description</label>
+                                                        <textarea type="text" id="Description" name="Description"
+                                                            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('description')} />
+                                                        {errors.description && <p className='text-sm text-red-700'>{errors.description.message}</p>}
+                                                    </div>
                                                 </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Price" className="block text-sm font-medium text-gray-600">Price</label>
-                                                    <input type="number" id="Price" name="Price"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none"
-                                                        {...register('price')} />
-                                                    {errors.price && <p className='text-sm text-red-700'>{errors.price.message}</p>}
-                                                </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Area" className="block text-sm font-medium text-gray-600">Area</label>
-                                                    <input type="text" id="Area" name="Area"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('area')} />
-                                                    {errors.area && <p className='text-sm text-red-700'>{errors.area.message}</p>}
-                                                </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="ApartmentType" className="block text-sm font-medium text-gray-600">ApartmentType</label>
-                                                    <input type="text" id="ApartmentType" name="ApartmentType"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('apartmentType')} />
-                                                    {errors.apartmentType && <p className='text-sm text-red-700'>{errors.apartmentType.message}</p>}
-                                                </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Description" className="block text-sm font-medium text-gray-600">Description</label>
-                                                    <input type="text" id="Description" name="Description"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('description')} />
-                                                    {errors.description && <p className='text-sm text-red-700'>{errors.description.message}</p>}
-                                                </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Landmark" className="block text-sm font-medium text-gray-600">Landmark</label>
-                                                    <input type="text" id="Landmark" name="Landmark"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('landmark')} />
-                                                    {errors.landmark && <p className='text-sm text-red-700'>{errors.landmark.message}</p>}
-                                                </div>
-                                                <div className='my-2'>
-                                                    <label htmlFor="Googlemap" className="block text-sm font-medium text-gray-600">Googlemap</label>
-                                                    <input type="text" id="Googlemap" name="Googlemap"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('googlemap')} />
-                                                    {errors.googlemap && <p className='text-sm text-red-700'>{errors.googlemap.message}</p>}
-                                                </div>
-                                                <div className='py-3'>
-                                                    <p className='block text-sm font-medium text-gray-600'>Upload  image</p>
-                                                    <label className='cursor-pointer' >
-                                                        <input type="file" className='hidden' onChange={(e) => { setImage(e.target.files[0]) }} />
-                                                        <img src={preview ? preview : "https://cdn-icons-png.flaticon.com/512/564/564793.png"} alt="" className='w-20' />
-
-                                                    </label>
-
-                                                </div>
-                                                <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                                <div className="py-3 sm:flex sm:flex-row-reverse">
                                                     <button
                                                         type="submit"
                                                         className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-grayx-500 sm:ml-3 sm:w-auto"
@@ -170,7 +173,6 @@ function AddProperty() {
                                     </div>
                                 </div>
                             </div>
-
                         </DialogPanel>
                     </div>
                 </div>

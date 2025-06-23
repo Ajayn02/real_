@@ -2,13 +2,13 @@ import DashboardCards from '../components/DashboardCards'
 import RecentProperties from '../components/RecentProperties'
 import QuickActions from '../components/QuickActions'
 import { fetchData } from '../hooks/fetchData'
-import { getAllUsers, getAllReports ,getAdminPosts} from '../service/adminServices'
+import { getAllUsers, getAllReports, getAdminPosts } from '../service/adminServices'
 
 function Dashboard() {
 
-    const { data: postData, isLoading: postLoading, error: postError } = fetchData('posts', getAdminPosts, { search: '' })
-    const { data: userData, isLoading: userLoading, error: userError } = fetchData('user', getAllUsers, {})
-    const { data: reportData, isLoading: reportLoading, error: reportError } = fetchData('report', getAllReports, {})
+    const { data: postData, isLoading: postLoading, error: postError, isError: isPostError } = fetchData('posts', getAdminPosts, { search: '' })
+    const { data: userData, isLoading: userLoading, error: userError, isError: isUserError } = fetchData('user', getAllUsers, {search:''})
+    const { data: reportData, isLoading: reportLoading, error: reportError, isError: isReportError } = fetchData('report', getAllReports, {})
 
     const pendingReports = reportData?.data?.data?.filter((item) => {
         return item.status === 'pending'
@@ -22,7 +22,7 @@ function Dashboard() {
         )
     }
 
-    if (postError || userError || reportError) {
+    if (isPostError || isUserError || isReportError) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <div className="bg-red-100 text-red-700 px-6 py-4 rounded-md ">
@@ -46,7 +46,7 @@ function Dashboard() {
                 <DashboardCards postCount={postData?.data?.data?.length} userCount={userData?.data?.data?.length} reportCount={pendingReports?.length} soldPropertiesCount={soldProperties?.length} />
                 <div className=' w-full '>
                     <div className='grid grid-cols-1 md:grid-cols-2'>
-                        <RecentProperties />
+                        <RecentProperties postData={postData?.data?.data} />
                         <QuickActions />
                     </div>
                 </div>

@@ -1,7 +1,50 @@
-import React from 'react'
-import { Search, MessageSquare, Trash } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { Search } from 'lucide-react'
+import { getAllUsers } from '../service/adminServices'
+import { fetchData } from '../hooks/fetchData'
+import { image_url } from '../service/base_url'
+import EditUser from '../components/EditUser'
 
 function UserManagement() {
+    const [search, setSearch] = useState('')
+    const [debouncedSearch, setDebouncedSearch] = useState(search)
+    const [initialLoad, setInitialLoad] = useState(true)
+    const inputRef = useRef()
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearch(search)
+        }, 500)
+        return () => {
+            clearTimeout(handler)
+        }
+    }, [search])
+
+    const { data, isLoading, error, isError } = fetchData('user', getAllUsers, { search: debouncedSearch })
+
+    useEffect(() => {
+        if (!isLoading) {
+            setInitialLoad(false)
+        }
+    }, [isLoading])
+
+    if (initialLoad) {
+        return (
+            <div className='flex justify-center items-center h-screen'><div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div></div>
+        )
+    }
+
+    if (isError) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="bg-red-100 text-red-700 px-6 py-4 rounded-md ">
+                    <p className="font-semibold">Something went wrong</p>
+                    <p className="text-sm mt-1">{error?.message || 'Failed to fetch data.'}</p>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <>
             <div className='w-full min-h-screen p-2 sm:p-4'>
@@ -17,74 +60,41 @@ function UserManagement() {
                         <div className=' h-9 flex items-center border border-gray-400 border-r-0 rounded-tl-lg rounded-bl-lg'>
                             <Search size={20} color='#9CA3AF' className='mx-2' />
                         </div>
-                        <input type="text" className='w-full border border-gray-400 h-9 border-l-0 rounded-tr-lg rounded-br-lg focus:outline-none focus:ring-0 ' placeholder='Search users...' />
+                        <input type="text" className='w-full border border-gray-400 h-9 border-l-0 rounded-tr-lg rounded-br-lg focus:outline-none focus:ring-0 ' placeholder='Search users...' onChange={(e) => { setSearch(e.target.value) }} ref={inputRef} />
                     </div>
-
-                    <div className='flex flex-col w-full h-auto gap-y-5'>
-                        <div className='w-full grid grid-cols-12 rounded-lg bg-gray-200'>
-                            <div className='w-full  h-auto p-3 flex col-span-12 sm:col-span-6 '>
-                                <div className='flex items-center  w-[50px]'>
-                                    <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740" width={'100%'} alt="" className='rounded-3xl' />
-                                </div>
-                                <div className='flex flex-col ms-3'>
-                                    <h3 className='font-semibold'>John Anderson</h3>
-                                    <p className='text-sm text-gray-500'>john.anderson@email.com</p>
-                                </div>
-                            </div>
-                            <div className='flex items-center justify-baseline sm:justify-end col-span-12 sm:col-span-6 pb-3 sm:pb-0 ms-3 sm:ms-0'>
-                                <div className='flex flex-col me-2  w-28'>
-                                    <h6 className='text-xl font-semibold text-center'>10</h6>
-                                    <p className='text-xs text-center mt-1'>Properties posted</p>
-                                </div>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'><MessageSquare /></button>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'>
-                                    <Trash /></button>
-                            </div>
-                        </div>
-
-                        <div className='w-full grid grid-cols-12 rounded-lg bg-gray-200'>
-                            <div className='w-full  h-auto p-3 flex col-span-12 sm:col-span-6 '>
-                                <div className='flex items-center  w-[50px]'>
-                                    <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740" width={'100%'} alt="" className='rounded-3xl' />
-                                </div>
-                                <div className='flex flex-col ms-3'>
-                                    <h3 className='font-semibold'>John Anderson</h3>
-                                    <p className='text-sm text-gray-500'>john.anderson@email.com</p>
-                                </div>
-                            </div>
-                            <div className='flex items-center justify-baseline sm:justify-end col-span-12 sm:col-span-6 pb-3 sm:pb-0 ms-3 sm:ms-0'>
-                                <div className='flex flex-col me-2  w-28'>
-                                    <h6 className='text-xl font-semibold text-center'>10</h6>
-                                    <p className='text-xs text-center mt-1'>Properties posted</p>
-                                </div>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'><MessageSquare /></button>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'>
-                                    <Trash /></button>
-                            </div>
-                        </div>
-
-                        <div className='w-full grid grid-cols-12 rounded-lg bg-gray-200'>
-                            <div className='w-full  h-auto p-3 flex col-span-12 sm:col-span-6 '>
-                                <div className='flex items-center  w-[50px]'>
-                                    <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740" width={'100%'} alt="" className='rounded-3xl' />
-                                </div>
-                                <div className='flex flex-col ms-3'>
-                                    <h3 className='font-semibold'>John Anderson</h3>
-                                    <p className='text-sm text-gray-500'>john.anderson@email.com</p>
-                                </div>
-                            </div>
-                            <div className='flex items-center justify-baseline sm:justify-end col-span-12 sm:col-span-6 pb-3 sm:pb-0 ms-3 sm:ms-0'>
-                                <div className='flex flex-col me-2  w-28'>
-                                    <h6 className='text-xl font-semibold text-center'>10</h6>
-                                    <p className='text-xs text-center mt-1'>Properties posted</p>
-                                </div>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'><MessageSquare /></button>
-                                <button className='px-1.5 py-1 rounded-sm border border-gray-300 m-2 bg-white'>
-                                    <Trash /></button>
-                            </div>
-                        </div>
+                    <div className=' w-full min-h-[62vh]'>
+                        <table className="min-w-full table-auto bg-white text-sm text-left ">
+                            <thead className="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
+                                <tr>
+                                    <th className="px-2 py-3">Name</th>
+                                    <th className="px-2 py-3">Email</th>
+                                    <th className="px-2 py-3">Role</th>
+                                    <th className="px-2 py-3">Status</th>
+                                    <th className="px-2 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {
+                                    data?.data?.data?.map((item) => (
+                                        <tr key={item.id} className="hover:bg-gray-50">
+                                            <td className="px-2 py-3 flex items-center" >
+                                                <img src={item?.image ? `${image_url}/uploads/${item.image}` : `https://cdn-icons-png.flaticon.com/512/149/149071.png`} width={"50px"} height={"50px"} alt="" className=' border-3 border-gray-200 rounded-4xl me-3' />
+                                                <p>{item?.name}</p>
+                                            </td>
+                                            <td className="px-2 py-3">{item.email}</td>
+                                            <td className="px-2 py-3">{item.role}</td>
+                                            <td className="px-2 py-3">
+                                                <p className='text-blue-500 font-semibold'>{item.isActive ? `Active` : `Deactive`}</p>
+                                            </td>
+                                            <td className="px-2 py-3 ">
+                                                <EditUser user={item} />
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
             </div>
         </>

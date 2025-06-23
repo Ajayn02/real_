@@ -2,28 +2,33 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../service/authServices';
 import toast from 'react-hot-toast';
 
 function Login() {
 
-    const navigation=useNavigate()
+    const navigation = useNavigate()
     const schema = Yup.object().shape({
         email: Yup.string().email('Invalid email').required('Email is required'),
         password: Yup.string().required('Password is required').min(3)
     })
 
-    const { register,reset, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+    const { register, reset, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
 
     const onSubmit = async (data) => {
         const result = await loginUser(data)
         if (result.status == 200) {
             toast.success(result.data.message)
-            sessionStorage.setItem('user',result.data?.data?.username)
-            sessionStorage.setItem('token',result.data?.data?.token)
+            sessionStorage.setItem('user', result.data?.data?.username)
+            sessionStorage.setItem('token', result.data?.data?.token)
+            sessionStorage.setItem('role', result.data?.data?.role)
             reset()
-            navigation('/home')
+            if (result.data?.data?.role === 'admin') {
+                navigation('/dashboard')
+            } else {
+                navigation('/home')
+            }
         } else {
             toast.success(result.message)
         }
