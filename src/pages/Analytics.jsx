@@ -8,7 +8,7 @@ function Analytics() {
             <div className='w-full min-h-screen p-2 sm:p-4'>
                 <div className='w-full mb-6 md:mb-8 sm:mb-10 '>
                     <div className=''>
-                        <h2 className='text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold'>Report Management</h2>
+                        <h2 className='text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold'>Analytics</h2>
                         <p className='text-gray-500 text-xs sm:text-sm'>Monitor and manage user reports and activity</p>
                     </div>
                 </div>

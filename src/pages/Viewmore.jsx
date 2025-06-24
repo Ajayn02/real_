@@ -47,10 +47,21 @@ function Viewmore() {
         <>
             <div className='w-full min-h-screen my-3 flex justify-center items-center'>
                 <div className='w-[90%] sm:w-[80%]  p-1 sm:p-5 grid grid-cols- md:grid-cols-2'>
-                    <div className=' flex justify-center items-center p-3'>
+                    <div className=' flex justify-center items-center p-3  relative'>
+                        {
+                            data?.data?.data.isActive == false &&
+                            <div className='w-full h-full  absolute inset-0 bg-white/50 z-10 flex justify-center items-center'>
+                                <h3 className='font-semibold text-black text-2xl'>Disabled</h3>
+                            </div>
+                        }
                         <img src={`${image_url}/uploads/${data?.data?.data.image}`} className='w-full h-full' alt="" />
                     </div>
                     <div className='ps-4 flex flex-col  justify-center '>
+                        {
+                            data?.data?.data.isSoldout &&
+                            <div className=''><p className='px-2 font-semibold border rounded-2xl w-fit text-red-600'>Sold out</p></div>
+                        }
+
                         <h2 className='text-xl sm:text-3xl md:text-2xl lg:text-3xl 2xl:text-4xl  font-semibold my-2'>{data?.data?.data.title}</h2>
                         <p className='text-gray-400 font-semibold 2xl:text-2xl'><i className="fa-solid fa-location-dot me-1" />{data?.data?.data.location}</p>
                         <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl '>₹ {data?.data?.data.price}</p>
@@ -58,18 +69,21 @@ function Viewmore() {
                         <p className='font-semibold mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>Apartment Type : {data?.data?.data.apartmentType}</p>
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl '>{data?.data?.data.specialities}</p>
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>{data?.data?.data.landmark}</p>
-                        <div className='flex my-3'>
-                            <a href={data?.data?.data?.googlemap} target='_blank' className=' px-3 py-1 rounded-md viewbtn me-2' id='loc'>
-                                <span><i className="fa-solid fa-location-dot fa-lg " style={{ color: "black" }} /></span>
-                            </a>
-                            <button className='px-3 py-1 rounded-md viewbtn me-2' id='msg'>
-                                <span><i className="fa-regular fa-message fa-lg " style={{ color: "black" }} /></span>
-                            </button>
-                            <button onClick={() => { handleSave(data?.data?.data?.id) }} className='px-3 py-1 rounded-md viewbtn me-2' id='save'>
-                                <span><i className="fa-regular fa-bookmark fa-lg " style={{ color: "black" }} /></span>
-                            </button>
-                            <ReportModal postId={data?.data?.data?.id} />
-                        </div>
+                        {
+                            data?.data?.data.isActive == true &&
+                            <div className='flex my-3'>
+                                <a href={data?.data?.data?.googlemap} target='_blank' className=' px-3 py-1 rounded-md viewbtn me-2' id='loc'>
+                                    <span><i className="fa-solid fa-location-dot fa-lg " style={{ color: "black" }} /></span>
+                                </a>
+                                <button className='px-3 py-1 rounded-md viewbtn me-2' id='msg'>
+                                    <span><i className="fa-regular fa-message fa-lg " style={{ color: "black" }} /></span>
+                                </button>
+                                <button onClick={() => { handleSave(data?.data?.data?.id) }} className='px-3 py-1 rounded-md viewbtn me-2' id='save'>
+                                    <span><i className="fa-regular fa-bookmark fa-lg " style={{ color: "black" }} /></span>
+                                </button>
+                                <ReportModal postId={data?.data?.data?.id} />
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

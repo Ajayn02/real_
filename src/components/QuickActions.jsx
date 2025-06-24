@@ -3,10 +3,10 @@ import { TableProperties, Users, Flag, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 
-function QuickActions({ postData }) {
+function QuickActions() {
     return (
         <>
-            <div className=' min-h-100 px-4 sm:px-8 mt-5 md:mt-0'>
+            <div className=' min-h-80 px-4 sm:px-8 mt-5 md:mt-0'>
                 <div className='border border-gray-300 w-full h-full p-3  rounded-lg'>
                     <h6 className='text-2xl font-semibold mb-5'>Quick Actions</h6>
                     <div className=' w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4'>

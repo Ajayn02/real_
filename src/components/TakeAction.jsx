@@ -4,9 +4,10 @@ import RejectReportModal from './RejectReportModal'
 import RemovePostModal from './RemovePostModal'
 import { useState } from 'react'
 
-function TakeAction() {
+function TakeAction({ reportId }) {
     const [modalOpen, setModalOpen] = useState(false)
     const [removePostModalOpen, setRemovePostModalOpen] = useState(false)
+
     return (
         <>
             <Menu as="div" className="relative inline-block text-left">
@@ -40,8 +41,8 @@ function TakeAction() {
                 </MenuItems>
             </Menu>
 
-            <RejectReportModal open={modalOpen} setOpen={setModalOpen} />
-            <RemovePostModal open={removePostModalOpen} setOpen={setRemovePostModalOpen} />
+            <RejectReportModal reportId={reportId} open={modalOpen} setOpen={setModalOpen} />
+            <RemovePostModal reportId={reportId} open={removePostModalOpen} setOpen={setRemovePostModalOpen} />
         </>
     )
 }

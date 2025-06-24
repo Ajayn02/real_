@@ -1,11 +1,23 @@
 'use client'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import { mutateData } from '../hooks/mutateData'
 
 
-function RejectReportModal({ open, setOpen }) {
 
-    const handleRemovePost = async () => {
+function RejectReportModal({ open, setOpen, reportId }) {
 
+    const { mutation } = mutateData()
+
+    const handleRejectPost = async () => {
+        mutation.mutate({ key: 'reports', method: "PUT", endPoint: `/reports/${reportId}`, header: '', data: {} }, {
+            onSuccess: (result) => {
+                setOpen(false)
+            },
+            onError: (error) => {
+                console.log(error);
+                setOpen(false)
+            }
+        })
     }
 
     return (
@@ -37,7 +49,7 @@ function RejectReportModal({ open, setOpen }) {
                             <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
                                     type="button"
-                                    onClick={handleRemovePost}
+                                    onClick={handleRejectPost}
                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                                 >
                                     Yes, Reject

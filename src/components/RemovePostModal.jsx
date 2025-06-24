@@ -1,10 +1,21 @@
 'use client'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import { mutateData } from '../hooks/mutateData'
 
 
-function RemovePostModal({ open, setOpen }) {
+function RemovePostModal({ open, setOpen, reportId }) {
+
+    const { mutation } = mutateData()
     const handleRemovePost = async () => {
-
+        mutation.mutate({ key: 'reports', method: "PUT", endPoint: `/reports/action/${reportId}`, header: '', data: {} }, {
+            onSuccess: (result) => {
+                setOpen(false)
+            },
+            onError: (error) => {
+                console.log(error);
+                setOpen(false)
+            }
+        })
     }
     return (
         <>

@@ -106,13 +106,12 @@ function PropertyManagement() {
 
                                                 <div className='w-full h-[220px] relative'>
                                                     {
-                                                    item.isActive == false &&
-                                                    <div className='w-full h-full  absolute inset-0 bg-white/50 z-10 flex justify-center items-center'>
+                                                        item.isActive == false &&
+                                                        <div className='w-full h-full  absolute inset-0 bg-white/50 z-10 flex justify-center items-center'>
                                                             <h3 className='font-semibold text-black text-2xl'>Disabled</h3>
-                                                    </div>
-                                                }
-
-                                                    <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="No image" />
+                                                        </div>
+                                                    }
+                                                    <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="No image" style={{ borderRadius: "5px 5px 0px 0px" }} />
                                                 </div>
                                                 <h1 className='text-xl font-semibold px-3 pt-1 mt-5'>{item?.title}</h1>
                                                 <p className='text-gray-400 px-3 font-semibold'>

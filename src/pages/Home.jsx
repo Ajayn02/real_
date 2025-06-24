@@ -53,10 +53,10 @@ function Home() {
                                     <div key={item.id} className='flex justify-center items-center  mt-6'>
                                         <div className='h-auto w-[280px] flex flex-col rounded-md border border-gray-300  transition-transform duration-300 hover:scale-101 '>
                                             <div className='w-full h-[220px]  '>
-                                                <img src={`${image_url}/uploads/${item.image}`} className='w-[100%] h-[100%]' alt="" />
+                                                <img src={`${image_url}/uploads/${item.image}`} className='w-[100%] h-[100%]' alt="" style={{ borderRadius: "5px 5px 0px 0px" }} />
                                             </div>
                                             <h1 className='text-xl font-semibold px-3 pt-1 mt-5'>{item.title}</h1>
-                                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot px-3 pt-1 me-1" />{item.location}</p>
+                                            <p className='text-gray-400 font-semibold'><i className="fa-solid fa-location-dot ps-3 pe-2 pt-1" />{item.location}</p>
                                             <div className='flex justify-between px-3 mt-2 mb-3 font-semibold'>
                                                 <div className='flex items-center'><p>₹ {item.price}</p></div>
                                                 <Link to={`/view/${item.id}`} className=' border border-gray-300 px-2 py-1 rounded hover:border-none hover:bg-gray-700 hover:text-white hover:border-gray-700 '>View More</Link>

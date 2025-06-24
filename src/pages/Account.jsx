@@ -83,7 +83,7 @@ function Account() {
                                                         <h3 className='font-semibold text-black text-2xl'>Disabled</h3>
                                                     </div>
                                                 }
-                                                <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="" />
+                                                <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="" style={{borderRadius:"5px 5px 0px 0px"}} />
                                             </div>
                                             <h1 className='text-xl font-semibold px-3 pt-1 mt-5'>{item?.title}</h1>
                                             <p className='text-gray-400 px-3 font-semibold'><i className="fa-solid fa-location-dot  pt-1 me-1" />{item?.location}</p>

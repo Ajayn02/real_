@@ -53,7 +53,6 @@ function UserManagement() {
                         <h2 className='text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold'>User Management</h2>
                         <p className='text-gray-500 text-xs sm:text-sm'>Monitor and manage user accounts and activity</p>
                     </div>
-
                 </div>
                 <div className='w-full h-auto rounded-lg border border-gray-300 p-3 sm:p-6'>
                     <div className=' w-full flex items-center mb-5 '>
@@ -62,9 +61,9 @@ function UserManagement() {
                         </div>
                         <input type="text" className='w-full border border-gray-400 h-9 border-l-0 rounded-tr-lg rounded-br-lg focus:outline-none focus:ring-0 ' placeholder='Search users...' onChange={(e) => { setSearch(e.target.value) }} ref={inputRef} />
                     </div>
-                    <div className=' w-full min-h-[62vh]'>
-                        <table className="min-w-full table-auto bg-white text-sm text-left ">
-                            <thead className="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
+                    <div className=' w-full min-h-[62vh] overflow-x-auto'>
+                        <table className="min-w-[700px] md:min-w-full table-auto bg-white text-sm text-left ">
+                            <thead className="bg-gray-100 text-gray-600  uppercase text-xs tracking-wider">
                                 <tr>
                                     <th className="px-2 py-3">Name</th>
                                     <th className="px-2 py-3">Email</th>

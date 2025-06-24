@@ -14,7 +14,7 @@ function EditUser({ user }) {
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState('')
     const [preview, setPreview] = useState('')
-    const [isActive, setIsActive] = useState()
+    const [isActive, setIsActive] = useState(user?.isActive)
 
     useEffect(() => {
         if (image) {

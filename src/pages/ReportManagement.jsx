@@ -2,6 +2,7 @@ import TakeAction from '../components/TakeAction'
 import { fetchData } from '../hooks/fetchData'
 import { getAllReports } from '../service/adminServices'
 import { useEffect, useState } from 'react'
+import { CircleArrowOutUpRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -50,7 +51,6 @@ function ReportManagement() {
             </div>
         )
     }
-
     if (isError) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -76,16 +76,19 @@ function ReportManagement() {
                      bg-gray-300'>
                         <button className={`py-1 text-gray-600 font-semibold cursor-pointer w-full rounded-md 
                              ${button === 'pending' ? 'bg-gray-200' : 'bg-white'}`} onClick={() =>
-                                setButton('pending')}>Pending Reports </button>
+                                setButton('pending')}>Pending Reports
+                        </button>
                         <button className={`py-1 text-gray-600 font-semibold cursor-pointer w-full rounded-md 
                              ${button === 'resolved' ? 'bg-gray-200' : 'bg-white'}`} onClick={() =>
-                                setButton('resolved')}>Resolved</button>
+                                setButton('resolved')}>Resolved
+                        </button>
                         <button className={`py-1 text-gray-600 font-semibold cursor-pointer w-full rounded-md 
                              ${button === 'allReport' ? 'bg-gray-200' : 'bg-white'}`} onClick={() =>
-                                setButton('allReport')}>All Reports</button>
+                                setButton('allReport')}>All Reports
+                        </button>
                     </div>
 
-                    <div className='w-full   mt-3'>
+                    <div className='w-full mt-3'>
                         <div className='w-full min-h-[61vh]  rounded-lg overflow-x-auto'>
                             {
                                 tableData?.length > 0 ?
@@ -110,7 +113,9 @@ function ReportManagement() {
                                             {
                                                 tableData?.map((item) => (
                                                     <tr key={item?.id} className="hover:bg-gray-50">
-                                                        <td onClick={() => { handlePostDetails(item.id) }} className="px-2 py-3 cursor-pointer"  >{item?.title}</td>
+                                                        <td onClick={() => { handlePostDetails(item.id) }} className="px-2 py-3 cursor-pointer hover:text-blue-600"  >
+                                                            {item?.title}
+                                                        </td>
                                                         <td className="px-2 py-3">{item?.issue}</td>
                                                         <td className="px-2 py-3">{item?.issueDescription}</td>
                                                         <td className="px-2 py-3">{item.reporterEmail}</td>
@@ -122,7 +127,7 @@ function ReportManagement() {
                                                                 </td>
                                                                 :
                                                                 <td className="px-2 py-3 text-yellow-600 font-medium">
-                                                                    <TakeAction />
+                                                                    <TakeAction reportId={item?.reportId} />
                                                                 </td>
                                                         }
                                                     </tr>
