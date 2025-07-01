@@ -19,3 +19,7 @@ export const getAdminPosts = async ({ search }) => {
 export const getPostAnalytics = async () => {
     return await commonApi(`${base_url}/admin/post-analytics`, "GET", '', '')
 }
+
+export const getUserAnalytics = async () => {
+    return await commonApi(`${base_url}/admin/user-analytics`, "GET", '', '')
+}

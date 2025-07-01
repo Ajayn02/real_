@@ -15,13 +15,13 @@ function Analytics() {
                 <div className='w-full min-h-[78vh]'>
                     <div className='grid grid-cols-1 lg:grid-cols-2  md:gap-x-5 gap-y-5 '>
                         <div className=' h-auto rounded-lg border border-gray-300 p-2 sm:p-4'>
-                            <h6 className='text-md sm:text-xl font-semibold'>Properties Sold</h6>
-                            <p className='text-xs sm:text-sm mb-3 '>Monthly sales performance</p>
+                            <h6 className='text-md sm:text-xl font-semibold'>Posts Published</h6>
+                            <p className='text-xs sm:text-sm mb-3 '>Monthly content performance</p>
                             <SalesChart />
                         </div>
                         <div className=' h-auto rounded-lg border border-gray-300 p-2 sm:p-4'>
                             <h6 className='text-md sm:text-xl font-semibold'>User Growth</h6>
-                            <p className='text-xs sm:text-sm mb-3 '>New user registrations</p>
+                            <p className='text-xs sm:text-sm mb-3 '>Monthly users growth</p>
                             <UserGrowthChart />
                         </div>
                     </div>

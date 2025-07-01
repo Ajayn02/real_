@@ -6,16 +6,6 @@ import { getPostAnalytics } from '../service/adminServices';
 function SalesChart() {
 
     const { data } = fetchData("analytics", getPostAnalytics,)
-    console.log(data?.data?.data);
-
-    // const chartData = [
-    //     { time: 'Jan', sold: 30 },
-    //     { time: 'Feb', sold: 45 },
-    //     { time: 'Mar', sold: 60 },
-    //     { time: 'Apr', sold: 50 },
-    //     { time: 'May', sold: 80 },
-    //     { time: 'Jun', sold: 70 },
-    // ];
     return (
         <>
             <div style={{ width: '100%', height: 300 }}>
@@ -28,9 +18,13 @@ function SalesChart() {
                             </linearGradient>
                         </defs>
                         <XAxis dataKey="month" />
-                        <YAxis />
+                        <YAxis allowDecimals={false} />
                         <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
+                        <Tooltip contentStyle={{
+                            backgroundColor: '#f8fafc',
+                            border: '1px solid #cbd5e1',
+                            borderRadius: '4px',
+                        }} />
                         <Area
                             type="monotone"
                             dataKey="count"

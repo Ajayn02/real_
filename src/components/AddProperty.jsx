@@ -65,10 +65,10 @@ function AddProperty() {
         })
     }
 
-
     return (
         <>
-            <button className='bg-amber-950 text-white px-3 py-2 rounded-md' onClick={() => { setOpen(true) }}>Add +</button>
+            <button className='bg-amber-950 text-white px-3 py-2 rounded-md' onClick={() => { setOpen(true) }}>
+                Add +</button>
 
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
@@ -91,31 +91,31 @@ function AddProperty() {
                                         <div className="mt-2 w-full">
                                             <form action="" className='w-full' onSubmit={handleSubmit(handleAddProperty)}>
                                                 <div className='w-full grid grid-cols-1 sm:grid-cols-2 sm:gap-x-5  '>
-                                                    <div className='flex flex-col '>
+                                                    <div className='flex flex-col'>
                                                         <div className='my-1'>
                                                             <label htmlFor="Title" className="block text-sm font-medium text-gray-600">Title</label>
                                                             <input type="text" id="Title" name="Title"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('title')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('title')} />
                                                             {errors.title && <p className='text-sm text-red-700'>{errors.title.message}</p>}
 
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="Location" className="block text-sm font-medium text-gray-600">Location</label>
                                                             <input type="text" id="Location" name="Location"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('location')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('location')} />
                                                             {errors.location && <p className='text-sm text-red-700'>{errors.location.message}</p>}
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="Price" className="block text-sm font-medium text-gray-600">Price</label>
                                                             <input type="number" id="Price" name="Price"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none"
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none"
                                                                 {...register('price')} />
                                                             {errors.price && <p className='text-sm text-red-700'>{errors.price.message}</p>}
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="Area" className="block text-sm font-medium text-gray-600">Area in sq</label>
                                                             <input type="text" id="Area" name="Area"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('area')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('area')} />
                                                             {errors.area && <p className='text-sm text-red-700'>{errors.area.message}</p>}
                                                         </div>
                                                     </div>
@@ -123,24 +123,24 @@ function AddProperty() {
                                                         <div className='my-1'>
                                                             <label htmlFor="ApartmentType" className="block text-sm font-medium text-gray-600">Apartment Type</label>
                                                             <input type="text" id="ApartmentType" name="ApartmentType"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('apartmentType')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('apartmentType')} />
                                                             {errors.apartmentType && <p className='text-sm text-red-700'>{errors.apartmentType.message}</p>}
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="Landmark" className="block text-sm font-medium text-gray-600">Landmark</label>
                                                             <input type="text" id="Landmark" name="Landmark"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('landmark')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('landmark')} />
                                                             {errors.landmark && <p className='text-sm text-red-700'>{errors.landmark.message}</p>}
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="Googlemap" className="block text-sm font-medium text-gray-600">Googlemap Link</label>
                                                             <input type="text" id="Googlemap" name="Googlemap"
-                                                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('googlemap')} />
+                                                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('googlemap')} />
                                                             {errors.googlemap && <p className='text-sm text-red-700'>{errors.googlemap.message}</p>}
                                                         </div>
                                                         <div className='my-1'>
                                                             <label htmlFor="" className='block text-sm font-medium text-gray-600'>Upload Image</label>
-                                                            <input type="file" className='w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' onChange={(e) => { setImage(e.target.files[0]) }} />
+                                                            <input type="file" className='w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' onChange={(e) => { setImage(e.target.files[0]) }} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -148,7 +148,7 @@ function AddProperty() {
                                                     <div className='my-1'>
                                                         <label htmlFor="Description" className="block text-sm font-medium text-gray-600">Description</label>
                                                         <textarea type="text" id="Description" name="Description"
-                                                            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('description')} />
+                                                            className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" {...register('description')} />
                                                         {errors.description && <p className='text-sm text-red-700'>{errors.description.message}</p>}
                                                     </div>
                                                 </div>

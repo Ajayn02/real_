@@ -13,8 +13,6 @@ export const getUniquePost = async (params) => {
     return await commonApi(`${base_url}/posts/${params.id}`, 'GET', '', '')
 }
 
-export const getUserPosts = async () => {
-    return await commonApi(`${base_url}/posts/user`, 'GET', '', '')
+export const getUserPosts = async ({ userId }) => {
+    return await commonApi(`${base_url}/posts/user?userId=${userId}`, 'GET', '', '')
 }
-
-

@@ -14,23 +14,14 @@ function Viewmore() {
 
     const { id } = useParams()
 
-    const { data, isError, isLoading, error } = fetchData('post', getUniquePost, { id })
+    const { data, isLoading, error } = fetchData('post', getUniquePost, { id })
 
 
     const { mutation } = mutateData()
 
     const handleSave = async (id) => {
         try {
-            mutation.mutate({ key: 'save', method: 'POST', endPoint: '/save', header: '', data: { postId: id } },
-                {
-                    onSuccess: (result) => {
-                        console.log(result);
-                    },
-                    onError: (error) => {
-                        console.log(error);
-                    }
-                }
-            )
+            mutation.mutate({ key: 'save', method: 'POST', endPoint: '/save', header: '', data: { postId: id } })
         } catch (error) {
             console.log(error);
             toast.error('Something went wrong')
@@ -70,7 +61,8 @@ function Viewmore() {
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl '>{data?.data?.data.specialities}</p>
                         <p className='mt-2 text-md sm:text-lg md:text-md lg:text-lg 2xl:text-2xl'>{data?.data?.data.landmark}</p>
                         {
-                            data?.data?.data.isActive == true &&
+                            data?.data?.data.isActive &&
+                            sessionStorage.getItem('role') != `admin` &&
                             <div className='flex my-3'>
                                 <a href={data?.data?.data?.googlemap} target='_blank' className=' px-3 py-1 rounded-md viewbtn me-2' id='loc'>
                                     <span><i className="fa-solid fa-location-dot fa-lg " style={{ color: "black" }} /></span>

@@ -17,12 +17,11 @@ export const mutateData = () => {
             if (result.status == 200 || result.status == 201) {
                 toast.success(result.data?.message)
                 queryClient.invalidateQueries({ queryKey: [key] })
-            } 
+            }
         },
         onError: (error) => {
             console.log(error);
         }
     })
-
     return { mutation };
 }

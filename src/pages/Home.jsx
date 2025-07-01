@@ -70,7 +70,6 @@ function Home() {
                         :
                         <div className='h-[85vh] w-full  flex justify-center items-center'><h1 className='text-center md:text-3xl sm:text-2xl text-xl '>No Post Added Yet</h1></div>
                 }
-
             </div>
         </>
     )

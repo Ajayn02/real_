@@ -5,7 +5,7 @@ import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
 import { io } from 'socket.io-client'
 
 
-// const socket = io(`http://localhost:5000`)
+// const socket = io(`http://localhost:3005`)
 
 function Message() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -71,7 +71,6 @@ function Message() {
                             <img src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png" className='h-[6vh]' alt="" />
                             <p className='text-lg font-semibold'>Fadil</p>
                         </div>
-                        {/* chat */}
                         <div className='w-full mb-2'>
                             <div className='w-auto max-w-[300px] bg-gray-600 py-1 px-2' style={{ borderRadius: "0px 10px 10px 10px" }}>
                                 <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
@@ -82,10 +81,8 @@ function Message() {
                                 <p className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
                             </div>
                         </div>
-                        {/* chat */}
                     </div>
 
-                    {/* inputbox */}
                     <div className='w-full lg:w-[80%]  h-[10vh] flex justify-between items-center px-1 sm:px-2 md:px-5 '>
                         <input type="text" className='border w-full h-10 rounded-lg md:w-[93%] me-2' />
                         <div className='flex justify-center items-center'>

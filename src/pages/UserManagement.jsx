@@ -1,15 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { Search } from 'lucide-react'
 import { getAllUsers } from '../service/adminServices'
 import { fetchData } from '../hooks/fetchData'
 import { image_url } from '../service/base_url'
 import EditUser from '../components/EditUser'
+import { userProfileContext } from '../context/UserProfileContext'
+import { useNavigate } from 'react-router-dom'
 
 function UserManagement() {
     const [search, setSearch] = useState('')
     const [debouncedSearch, setDebouncedSearch] = useState(search)
     const [initialLoad, setInitialLoad] = useState(true)
     const inputRef = useRef()
+    const navigate = useNavigate()
+    const { setUserId } = useContext(userProfileContext)
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -27,6 +31,11 @@ function UserManagement() {
             setInitialLoad(false)
         }
     }, [isLoading])
+
+    const handleUserProfile = async (id) => {
+        setUserId(id)
+        navigate('/account')
+    }
 
     if (initialLoad) {
         return (
@@ -78,7 +87,7 @@ function UserManagement() {
                                         <tr key={item.id} className="hover:bg-gray-50">
                                             <td className="px-2 py-3 flex items-center" >
                                                 <img src={item?.image ? `${image_url}/uploads/${item.image}` : `https://cdn-icons-png.flaticon.com/512/149/149071.png`} width={"50px"} height={"50px"} alt="" className=' border-3 border-gray-200 rounded-4xl me-3' />
-                                                <p>{item?.name}</p>
+                                                <p onClick={() => { handleUserProfile(item.id) }} className='hover:text-blue-500 cursor-pointer' >{item?.name}</p>
                                             </td>
                                             <td className="px-2 py-3">{item.email}</td>
                                             <td className="px-2 py-3">{item.role}</td>

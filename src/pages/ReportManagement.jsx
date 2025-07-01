@@ -30,10 +30,10 @@ function ReportManagement() {
         }
     }
 
-    const formatDate = (isoDate) => {
+    const formateDate = (isoDate) => {
         const date = new Date(isoDate)
         const day = String(date.getDate()).padStart(2, '0')
-        const month = String(date.getMonth() + 1).padStart(2, '0') // Months are 0-indexed
+        const month = String(date.getMonth() + 1).padStart(2, '0')
         const year = date.getFullYear()
         const hours = String(date.getHours()).padStart(2, '0')
         const minutes = String(date.getMinutes()).padStart(2, '0')
@@ -43,11 +43,17 @@ function ReportManagement() {
     const handlePostDetails = async (id) => {
         navigate(`/view/${id}`)
     }
+    const statusStyles = {
+        pending: 'bg-yellow-200',
+        resolved: 'bg-green-300',
+        rejected: 'bg-red-300',
+    }
 
     if (isLoading) {
         return (
             <div className='flex justify-center items-center h-screen'>
-                <div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin">
+                </div>
             </div>
         )
     }
@@ -117,13 +123,13 @@ function ReportManagement() {
                                                             {item?.title}
                                                         </td>
                                                         <td className="px-2 py-3">{item?.issue}</td>
-                                                        <td className="px-2 py-3">{item?.issueDescription}</td>
+                                                        <td className="px-2 py-3 max-w-[350px]">{item?.issueDescription}</td>
                                                         <td className="px-2 py-3">{item.reporterEmail}</td>
-                                                        <td className="px-2 py-3">{formatDate(item.reportDate)}</td>
+                                                        <td className="px-2 py-3">{formateDate(item.reportDate)}</td>
                                                         {
                                                             button !== 'pending' ?
                                                                 <td className='px-2 py-3 text-yellow-600 font-medium'>
-                                                                    <p className='text-blue-500 font-semibold'>{item.status}</p>
+                                                                    <p className={`text-black px-2 rounded-lg font-semibold ${statusStyles[item?.status]}`}>{item.status}</p>
                                                                 </td>
                                                                 :
                                                                 <td className="px-2 py-3 text-yellow-600 font-medium">

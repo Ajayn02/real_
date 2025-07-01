@@ -32,10 +32,7 @@ function Login() {
         } else {
             toast.success(result.message)
         }
-
     }
-
-
     return (
         <>
             <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4 z-10">
@@ -70,7 +67,6 @@ function Login() {
                     </p>
                 </div>
             </div>
-
         </>
     )
 }

@@ -7,10 +7,7 @@ import * as Yup from 'yup';
 import { mutateData } from '../hooks/mutateData'
 import { image_url } from '../service/base_url'
 
-
-
 function EditUser({ user }) {
-
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState('')
     const [preview, setPreview] = useState('')
@@ -29,11 +26,9 @@ function EditUser({ user }) {
     })
 
     const { reset, register, formState: { errors }, handleSubmit } = useForm({ resolver: yupResolver(schema) })
-
     let { mutation } = mutateData()
 
     const handleUpdate = async (data) => {
-
         if (!image) {
             if (sessionStorage.getItem('role') === 'admin') {
                 data.isActive = isActive
@@ -42,7 +37,6 @@ function EditUser({ user }) {
                 data.isActive = user.isActive
             }
             data.image = user.image
-
             mutation.mutate({ key: 'user', method: 'PUT', endPoint: `/users`, header: '', data }, {
                 onSuccess: () => {
                     reset()
@@ -60,7 +54,6 @@ function EditUser({ user }) {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
-
             mutation.mutate({ key: 'user', method: 'PUT', endPoint: '/users', header, data: formData }, {
                 onSuccess: (result) => {
                     console.log(result);
@@ -75,7 +68,6 @@ function EditUser({ user }) {
     return (
         <>
             <i className="fa-solid fa-pen-to-square fa-lg" onClick={() => { setOpen(true) }} />
-
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
                     transition
@@ -99,13 +91,13 @@ function EditUser({ user }) {
                                                 <div>
                                                     <label htmlFor="" className="block text-sm font-medium text-gray-600">Name</label>
                                                     <input type="text" id="Name" name="Name"
-                                                        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" defaultValue={user?.name}  {...register('name')} />
+                                                        className="w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" defaultValue={user?.name}  {...register('name')} />
                                                     {errors.name && <p className='text-sm text-red-700'>{errors.name.message}</p>}
                                                 </div>
                                                 <div className='my-2'>
                                                     <label htmlFor="Email" className="block text-sm font-medium text-gray-600">Email</label>
                                                     <input type="text" id="Email" name="Email"
-                                                        className="w-full bg-gray-100 px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" value={user?.email} disabled />
+                                                        className="w-full bg-gray-100 px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none" value={user?.email} disabled />
                                                 </div>
                                                 {
                                                     sessionStorage.getItem('role') === 'user' ?
@@ -120,7 +112,7 @@ function EditUser({ user }) {
                                                         :
                                                         <div className='my-2'>
                                                             <label htmlFor="Status" className="block text-sm font-medium text-gray-600">Status</label>
-                                                            <select name="" id="" className='w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' defaultValue={user?.isActive} onChange={(e) => { setIsActive(e.target.value) }} >
+                                                            <select name="" id="" className='w-full px-4 py-2 border border-gray-400 rounded-md focus:ring-2 focus:border-none focus:ring-blue-500 focus:outline-none' defaultValue={user?.isActive} onChange={(e) => { setIsActive(e.target.value) }} >
                                                                 <option value={true}>Active</option>
                                                                 <option value={false}>Deactive</option>
                                                             </select>
@@ -148,7 +140,6 @@ function EditUser({ user }) {
                                     </div>
                                 </div>
                             </div>
-
                         </DialogPanel>
                     </div>
                 </div>

@@ -18,8 +18,8 @@ function ReportModal({ postId }) {
 
     const [open, setOpen] = useState(false)
     const [description, setDescription] = useState('');
-
     const { mutation } = mutateData()
+
     const handleReport = async (data) => {
         const reportData = {
             issue: data.issue,
@@ -39,7 +39,6 @@ function ReportModal({ postId }) {
 
     return (
         <>
-
             <button className='px-3 py-1 rounded-md viewbtn me-2' id='rep' onClick={() => { setOpen(true) }}>
                 <span><i className="fa-regular fa-flag fa-lg " style={{ color: "black" }} /></span>
             </button>
@@ -47,18 +46,15 @@ function ReportModal({ postId }) {
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
                     transition
-                    className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
-                />
+                    className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in" />
 
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <DialogPanel
                             transition
-                            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
-                        >
+                            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95" >
                             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div className="sm:flex sm:items-start">
-
                                     <div className="mt-3 text-center  sm:mt-0 sm:ml-4 sm:text-left w-full">
                                         <DialogTitle className=" text-lg font-semibold text-gray-900">
                                             Are you sure to report this post ?
@@ -82,20 +78,17 @@ function ReportModal({ postId }) {
                                                     <input type="radio" name="reason" value={`Others`} className='me-2' id='reason4' onClick={() => { setDescription(true) }} {...register('issue')} />
                                                     Others
                                                 </label>
-
-
                                                 {
                                                     description &&
                                                     <>
                                                         <div className='w-full px-1'>
-                                                            <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border focus:border-gray-600' {...register('description')} ></textarea>
+                                                            <textarea name="other" id="other" placeholder='Describe your reason ...' className='w-full h-auto p-2  rounded border border-gray-400 focus:border-gray-600' {...register('description')} ></textarea>
                                                         </div>
                                                         {errors.description &&
                                                             <p className='text-sm text-red-700'>{errors.description.message}</p>
                                                         }
                                                     </>
                                                 }
-
                                                 <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                                     <button
                                                         type="submit"
@@ -112,13 +105,11 @@ function ReportModal({ postId }) {
                                                         Cancel
                                                     </button>
                                                 </div>
-
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </DialogPanel>
                     </div>
                 </div>

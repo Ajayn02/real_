@@ -7,16 +7,22 @@ import { getUserDetails } from '../service/userService'
 import { getUserPosts } from '../service/postService'
 import { image_url } from '../service/base_url'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { userProfileContext } from '../context/UserProfileContext'
 
 function Account() {
+    const { userId } = useContext(userProfileContext)
 
-    const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails)
-    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData('userPosts', getUserPosts)
+    const { isError: isUserError, isLoading: isUserLoading, data: userData, error: userError } = fetchData('user', getUserDetails, { userId: userId ? userId : '' })
 
+    const { isError: isPostError, isLoading: isPostLoading, data: postData, error: PostError } = fetchData('userPosts', getUserPosts, { userId: userId ? userId : '' })
 
     if (isPostLoading || isUserLoading) {
         return (
-            <div className='flex justify-center items-center h-screen'><div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div></div>
+            <div className='flex justify-center items-center h-screen'>
+                <div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin">
+                </div>
+            </div>
         )
     }
     if (isPostError || isUserError) {
@@ -83,7 +89,7 @@ function Account() {
                                                         <h3 className='font-semibold text-black text-2xl'>Disabled</h3>
                                                     </div>
                                                 }
-                                                <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="" style={{borderRadius:"5px 5px 0px 0px"}} />
+                                                <img src={`${image_url}/uploads/${item?.image}`} className='w-[100%] h-[100%]' alt="" style={{ borderRadius: "5px 5px 0px 0px" }} />
                                             </div>
                                             <h1 className='text-xl font-semibold px-3 pt-1 mt-5'>{item?.title}</h1>
                                             <p className='text-gray-400 px-3 font-semibold'><i className="fa-solid fa-location-dot  pt-1 me-1" />{item?.location}</p>

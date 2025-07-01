@@ -7,7 +7,7 @@ import { getAllUsers, getAllReports, getAdminPosts } from '../service/adminServi
 function Dashboard() {
 
     const { data: postData, isLoading: postLoading, error: postError, isError: isPostError } = fetchData('posts', getAdminPosts, { search: '' })
-    const { data: userData, isLoading: userLoading, error: userError, isError: isUserError } = fetchData('user', getAllUsers, {search:''})
+    const { data: userData, isLoading: userLoading, error: userError, isError: isUserError } = fetchData('user', getAllUsers, { search: '' })
     const { data: reportData, isLoading: reportLoading, error: reportError, isError: isReportError } = fetchData('report', getAllReports, {})
 
     const pendingReports = reportData?.data?.data?.filter((item) => {
